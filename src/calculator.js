@@ -217,8 +217,73 @@ class Controller {
     this.model = model;
     this.view = view;
     this.view.render(this.model.arrButton);
+    this.view.getElement(".clear-button").addEventListener("click", (e) => {
+      e = this.model.clearAll();
+    });
 
-    
+    this.view.getElement(".number1").addEventListener("click", (e) => {
+      e = this.model.numberButton("1");
+    });
+
+    this.view.getElement(".number2").addEventListener("click", (e) => {
+      e = this.model.numberButton("2");
+    });
+
+    this.view.getElement(".number3").addEventListener("click", (e) => {
+      e = this.model.numberButton("3");
+    });
+
+    this.view.getElement(".number4").addEventListener("click", (e) => {
+      e = this.model.numberButton("4");
+    });
+
+    this.view.getElement(".number5").addEventListener("click", (e) => {
+      e = this.model.numberButton("5");
+    });
+
+    this.view.getElement(".number6").addEventListener("click", (e) => {
+      e = this.model.numberButton("6");
+    });
+
+    this.view.getElement(".number7").addEventListener("click", (e) => {
+      e = this.model.numberButton("7");
+    });
+
+    this.view.getElement(".number8").addEventListener("click", (e) => {
+      e = this.model.numberButton("8");
+    });
+
+    this.view.getElement(".number9").addEventListener("click", (e) => {
+      e = this.model.numberButton("9");
+    });
+
+    this.view.getElement(".number0").addEventListener("click", (e) => {
+      e = this.model.numberButton("0");
+    });
+
+    this.view.getElement(".number").addEventListener("click", (e) => {
+      e = this.model.numberButton(".");
+    });
+
+    this.view.getElement("#plus").addEventListener("click", (e) => {
+      e = this.model.operatorButton("+");
+    });
+
+    this.view.getElement("#minus").addEventListener("click", (e) => {
+      e = this.model.operatorButton("-");
+    });
+
+    this.view.getElement("#multiply").addEventListener("click", (e) => {
+      e = this.model.operatorButton("*");
+    });
+
+    this.view.getElement("#divide").addEventListener("click", (e) => {
+      e = this.model.operatorButton("/");
+    });
+
+    this.view.getElement("#equal").addEventListener("click", (e) => {
+      e = this.model.calculateQueue(this.model.queue);
+    });
   }
 }
 

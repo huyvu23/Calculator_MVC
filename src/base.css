@@ -1,0 +1,31 @@
+:root {
+  --white-color: #fff;
+  --black-color: #000;
+  --gray-color: #ccc;
+  --red-color: red;
+  --border: 5px;
+  --plus-color: #7c93df;
+  --minus-color: #f08080;
+  --multiply-color: #ffa500;
+  --divide-color: #20b1a9;
+  --shadow: 2px 2px 4px;
+}
+
+.number1,
+.number2,
+.number3,
+.number4,
+.number5,
+.number6,
+.number7,
+.number8,
+.number9,
+.number0,
+.number {
+  width: 80px;
+  height: 80px;
+  font-size: 20px;
+  border-radius: var(--border);
+  border: 1px solid var(--gray-color);
+  box-shadow: var(--shadow);
+}

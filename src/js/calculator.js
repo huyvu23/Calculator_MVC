@@ -92,6 +92,102 @@ class Model {
       (this.lastResult = 0);
   }
 
+  delete = () => {
+    document.querySelector(".clear-button").addEventListener("click", (e) => {
+      e = this.clearAll();
+    });
+  };
+
+  number1 = () => {
+    document.querySelector(".number1").addEventListener("click", (e) => {
+      e = this.numberButton("1");
+    });
+  };
+
+  number2 = () => {
+    document.querySelector(".number2").addEventListener("click", (e) => {
+      e = this.numberButton("2");
+    });
+  };
+
+  number3 = () => {
+    document.querySelector(".number3").addEventListener("click", (e) => {
+      e = this.numberButton("3");
+    });
+  };
+
+  number4 = () => {
+    document.querySelector(".number4").addEventListener("click", (e) => {
+      e = this.numberButton("4");
+    });
+  };
+
+  number5 = () => {
+    document.querySelector(".number5").addEventListener("click", (e) => {
+      e = this.numberButton("5");
+    });
+  };
+  number6 = () => {
+    document.querySelector(".number6").addEventListener("click", (e) => {
+      e = this.numberButton("6");
+    });
+  };
+  number7 = () => {
+    document.querySelector(".number7").addEventListener("click", (e) => {
+      e = this.numberButton("7");
+    });
+  };
+  number8 = () => {
+    document.querySelector(".number8").addEventListener("click", (e) => {
+      e = this.numberButton("8");
+    });
+  };
+  number9 = () => {
+    document.querySelector(".number9").addEventListener("click", (e) => {
+      e = this.numberButton("9");
+    });
+  };
+
+  number0 = () => {
+    document.querySelector(".number0").addEventListener("click", (e) => {
+      e = this.numberButton("0");
+    });
+  };
+
+  dot = () => {
+    document.querySelector(".dot").addEventListener("click", (e) => {
+      e = this.numberButton(".");
+    });
+  };
+
+  plus = () => {
+    document.querySelector("#plus").addEventListener("click", (e) => {
+      e = this.operatorButton("+");
+    });
+  };
+
+  minus = () => {
+    document.querySelector("#minus").addEventListener("click", (e) => {
+      e = this.operatorButton("-");
+    });
+  };
+
+  multiply = () => {
+    document.querySelector("#multiply").addEventListener("click", (e) => {
+      e = this.operatorButton("*");
+    });
+  };
+  divide = () => {
+    document.querySelector("#multiply").addEventListener("click", (e) => {
+      e = this.operatorButton("/");
+    });
+  };
+  equal = () => {
+    document.querySelector("#equal").addEventListener("click", (e) => {
+      e = this.calculateQueue(this.queue);
+    });
+  };
+
   calculateQueue = (value) => {
     // value is total element
     if (this.input !== 0) {
@@ -183,14 +279,15 @@ class Model {
 
 class View {
   constructor() {
-    this.app = this.getElement("#root");
+    // this.app = this.getElement("#root");
     this.container = this.createElement("div", "container");
     this.calculator = this.createElement("div", "calculator");
     this.screen = this.createElement("div", "calculator-screen");
     this.button = this.createElement("div", "calculator-button");
     this.calculator.append(this.screen, this.button);
     this.container.append(this.calculator);
-    this.app.append(this.container);
+    // this.app.append(this.container);
+    document.body.appendChild(this.container);
   }
 
   createElement(tag, className) {
@@ -206,7 +303,7 @@ class View {
 
   render(buttons) {
     buttons.forEach((button) => {
-      this.button.innerHTML += `<button id="${button.name}" class="${button.class}" 
+      this.button.innerHTML += `<button id="${button.name}" class="${button.class}"
     >${button.label}</button>`;
     });
   }
@@ -217,74 +314,24 @@ class Controller {
     this.model = model;
     this.view = view;
     this.view.render(this.model.arrButton);
-    this.view.getElement(".clear-button").addEventListener("click", (e) => {
-      e = this.model.clearAll();
-    });
-
-    this.view.getElement(".number1").addEventListener("click", (e) => {
-      e = this.model.numberButton("1");
-    });
-
-    this.view.getElement(".number2").addEventListener("click", (e) => {
-      e = this.model.numberButton("2");
-    });
-
-    this.view.getElement(".number3").addEventListener("click", (e) => {
-      e = this.model.numberButton("3");
-    });
-
-    this.view.getElement(".number4").addEventListener("click", (e) => {
-      e = this.model.numberButton("4");
-    });
-
-    this.view.getElement(".number5").addEventListener("click", (e) => {
-      e = this.model.numberButton("5");
-    });
-
-    this.view.getElement(".number6").addEventListener("click", (e) => {
-      e = this.model.numberButton("6");
-    });
-
-    this.view.getElement(".number7").addEventListener("click", (e) => {
-      e = this.model.numberButton("7");
-    });
-
-    this.view.getElement(".number8").addEventListener("click", (e) => {
-      e = this.model.numberButton("8");
-    });
-
-    this.view.getElement(".number9").addEventListener("click", (e) => {
-      e = this.model.numberButton("9");
-    });
-
-    this.view.getElement(".number0").addEventListener("click", (e) => {
-      e = this.model.numberButton("0");
-    });
-
-    this.view.getElement(".number").addEventListener("click", (e) => {
-      e = this.model.numberButton(".");
-    });
-
-    this.view.getElement("#plus").addEventListener("click", (e) => {
-      e = this.model.operatorButton("+");
-    });
-
-    this.view.getElement("#minus").addEventListener("click", (e) => {
-      e = this.model.operatorButton("-");
-    });
-
-    this.view.getElement("#multiply").addEventListener("click", (e) => {
-      e = this.model.operatorButton("*");
-    });
-
-    this.view.getElement("#divide").addEventListener("click", (e) => {
-      e = this.model.operatorButton("/");
-    });
-
-    this.view.getElement("#equal").addEventListener("click", (e) => {
-      e = this.model.calculateQueue(this.model.queue);
-    });
+    this.model.number1();
+    this.model.number2();
+    this.model.number3();
+    this.model.number4();
+    this.model.number5();
+    this.model.number6();
+    this.model.number7();
+    this.model.number8();
+    this.model.number9();
+    this.model.number0();
+    this.model.plus();
+    this.model.minus();
+    this.model.multiply();
+    this.model.divide();
+    this.model.equal();
+    this.model.delete();
   }
 }
 
 const app = new Controller(new Model(), new View());
+const app2 = new Controller(new Model(), new View());

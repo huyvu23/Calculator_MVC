@@ -9,57 +9,57 @@ class Model {
       {
         name: "1",
         label: 1,
-        class: "number1",
+        class: "number",
       },
       {
         name: "2",
         label: 2,
-        class: "number2",
+        class: "number",
       },
       {
         name: "3",
         label: 3,
-        class: "number3",
+        class: "number",
       },
       {
         name: "4",
         label: 4,
-        class: "number4",
+        class: "number",
       },
       {
         name: "5",
         label: 5,
-        class: "number5",
+        class: "number",
       },
       {
         name: "6",
         label: 6,
-        class: "number6",
+        class: "number",
       },
       {
         name: "7",
         label: 7,
-        class: "number7",
+        class: "number",
       },
       {
         name: "8",
         label: 8,
-        class: "number8",
+        class: "number",
       },
       {
         name: "9",
         label: 9,
-        class: "number9",
+        class: "number",
       },
       {
         name: "0",
         label: 0,
-        class: "number0",
+        class: "number",
       },
       {
         name: "dot",
         label: ".",
-        class: "number",
+        class: "dot",
       },
       {
         name: "plus",
@@ -84,109 +84,13 @@ class Model {
       {
         name: "equal",
         label: "=",
-        class: "operator",
+        class: "equal",
       },
     ]),
       (this.queue = []),
       (this.input = 0),
       (this.lastResult = 0);
   }
-
-  delete = () => {
-    document.querySelector(".clear-button").addEventListener("click", (e) => {
-      e = this.clearAll();
-    });
-  };
-
-  number1 = () => {
-    document.querySelector(".number1").addEventListener("click", (e) => {
-      e = this.numberButton("1");
-    });
-  };
-
-  number2 = () => {
-    document.querySelector(".number2").addEventListener("click", (e) => {
-      e = this.numberButton("2");
-    });
-  };
-
-  number3 = () => {
-    document.querySelector(".number3").addEventListener("click", (e) => {
-      e = this.numberButton("3");
-    });
-  };
-
-  number4 = () => {
-    document.querySelector(".number4").addEventListener("click", (e) => {
-      e = this.numberButton("4");
-    });
-  };
-
-  number5 = () => {
-    document.querySelector(".number5").addEventListener("click", (e) => {
-      e = this.numberButton("5");
-    });
-  };
-  number6 = () => {
-    document.querySelector(".number6").addEventListener("click", (e) => {
-      e = this.numberButton("6");
-    });
-  };
-  number7 = () => {
-    document.querySelector(".number7").addEventListener("click", (e) => {
-      e = this.numberButton("7");
-    });
-  };
-  number8 = () => {
-    document.querySelector(".number8").addEventListener("click", (e) => {
-      e = this.numberButton("8");
-    });
-  };
-  number9 = () => {
-    document.querySelector(".number9").addEventListener("click", (e) => {
-      e = this.numberButton("9");
-    });
-  };
-
-  number0 = () => {
-    document.querySelector(".number0").addEventListener("click", (e) => {
-      e = this.numberButton("0");
-    });
-  };
-
-  dot = () => {
-    document.querySelector(".dot").addEventListener("click", (e) => {
-      e = this.numberButton(".");
-    });
-  };
-
-  plus = () => {
-    document.querySelector("#plus").addEventListener("click", (e) => {
-      e = this.operatorButton("+");
-    });
-  };
-
-  minus = () => {
-    document.querySelector("#minus").addEventListener("click", (e) => {
-      e = this.operatorButton("-");
-    });
-  };
-
-  multiply = () => {
-    document.querySelector("#multiply").addEventListener("click", (e) => {
-      e = this.operatorButton("*");
-    });
-  };
-  divide = () => {
-    document.querySelector("#multiply").addEventListener("click", (e) => {
-      e = this.operatorButton("/");
-    });
-  };
-  equal = () => {
-    document.querySelector("#equal").addEventListener("click", (e) => {
-      e = this.calculateQueue(this.queue);
-    });
-  };
 
   calculateQueue = (value) => {
     // value is total element
@@ -289,6 +193,9 @@ class View {
     // this.app.append(this.container);
     document.body.appendChild(this.container);
   }
+  // updateScreen = (value) =>{
+
+  // }
 
   createElement(tag, className) {
     const element = document.createElement(tag);
@@ -304,9 +211,44 @@ class View {
   render(buttons) {
     buttons.forEach((button) => {
       this.button.innerHTML += `<button id="${button.name}" class="${button.class}"
-    >${button.label}</button>`;
+      value = "${button.label}">${button.label}</button>`;
     });
   }
+
+  // * add event
+  bindNumberAndDot = (handler) => {
+    this.button.addEventListener("click", (e) => {
+      if (e.target.className === "number" || e.target.className === "dot") {
+        const keyValue = e.target.value;
+        handler(keyValue);
+      }
+    });
+  };
+
+  bindClear = (handler) => {
+    this.button.addEventListener("click", (e) => {
+      if (e.target.className === "clear-button") {
+        handler();
+      }
+    });
+  };
+
+  bindOperation = (handler) => {
+    this.button.addEventListener("click", (e) => {
+      if (e.target.className === "operator") {
+        const keyValue = e.target.value;
+        handler(keyValue);
+      }
+    });
+  };
+
+  bindCalculate = (handler) => {
+    this.button.addEventListener("click", (e) => {
+      if (e.target.className === "equal") {
+        handler();
+      }
+    });
+  };
 }
 
 class Controller {
@@ -314,23 +256,26 @@ class Controller {
     this.model = model;
     this.view = view;
     this.view.render(this.model.arrButton);
-    this.model.number1();
-    this.model.number2();
-    this.model.number3();
-    this.model.number4();
-    this.model.number5();
-    this.model.number6();
-    this.model.number7();
-    this.model.number8();
-    this.model.number9();
-    this.model.number0();
-    this.model.plus();
-    this.model.minus();
-    this.model.multiply();
-    this.model.divide();
-    this.model.equal();
-    this.model.delete();
+
+    this.view.bindNumberAndDot(this.handleButtonAndDot);
+    this.view.bindClear(this.handleClear);
+    this.view.bindOperation(this.handleOperation);
+    this.view.bindCalculate(this.handleCalculate);
   }
+  handleButtonAndDot = (char) => {
+    this.model.numberButton(char);
+  };
+
+  handleClear = () => {
+    this.model.clearAll();
+  };
+  handleOperation = (operator) => {
+    this.model.operatorButton(operator);
+  };
+
+  handleCalculate = () => {
+    this.model.calculateQueue(this.model.queue);
+  };
 }
 
 const app = new Controller(new Model(), new View());

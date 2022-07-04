@@ -19,6 +19,17 @@ body {
   border-radius: var(--border);
 }
 
+.number,
+.equal,
+.dot {
+  width: 80px;
+  height: 80px;
+  font-size: 20px;
+  border-radius: var(--border);
+  border: 1px solid var(--gray-color);
+  box-shadow: var(--shadow);
+}
+
 .calculator-screen {
   display: flex;
   margin: auto;

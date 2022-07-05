@@ -89,7 +89,8 @@ class Model {
     ]),
       (this.queue = []),
       (this.input = 0),
-      (this.lastResult = 0);
+      (this.lastResult = 0),
+      (this.result = 0);
   }
 
   calculateQueue = (value) => {
@@ -106,6 +107,7 @@ class Model {
       switch (this.queue[i - 1]) {
         case "+":
           answer += value[i];
+
           break;
         case "-":
           answer -= value[i];
@@ -129,10 +131,11 @@ class Model {
     answer = parseFloat(answer);
     if (dividedByZero === 1) {
       this.clearAll();
-      document.querySelector(".calculator-screen").innerHTML = "ERROR";
+      this.input = "ERROR";
+      this.result = this.input;
     } else {
-      document.querySelector(".calculator-screen").innerHTML = answer;
       this.input = answer;
+      this.result = this.input;
       this.queue = [];
     }
   };
@@ -145,7 +148,7 @@ class Model {
   clearAll = () => {
     this.queue = [];
     this.input = 0;
-    document.querySelector(".calculator-screen").innerHTML = "0";
+    this.result = this.input;
   };
 
   numberButton = (arg) => {
@@ -153,16 +156,13 @@ class Model {
       this.clearAll();
       this.lastResult = 0;
     }
-    if (
-      document.querySelector(".calculator-screen").innerHTML === "ERROR" ||
-      (document.querySelector(".calculator-screen").innerHTML == "0" &&
-        arg != ".")
-    ) {
-      document.querySelector(".calculator-screen").innerHTML = "";
+    if (this.input === "ERROR" || (this.input == "0" && arg != ".")) {
+      this.input = "";
+      this.result = this.input;
     }
     if (!(arg === ".") || !this.input.match(/[.]/)) {
       this.input += arg;
-      document.querySelector(".calculator-screen").innerHTML += arg;
+      this.result = this.input;
     }
   };
 
@@ -171,31 +171,35 @@ class Model {
       this.input = parseFloat(this.input);
       this.addToQueue(this.input);
       this.addToQueue(arg);
-      document.querySelector(".calculator-screen").innerHTML += arg;
+      this.input += arg;
+      this.result = this.input;
       this.input = 0;
     }
     if (arg == "-" && isNaN(this.queue[0]) && this.input !== "-") {
       this.input = "-";
-      document.querySelector(".calculator-screen").innerHTML = "-";
+      this.result = this.input;
     }
+  };
+
+  getResult = () => {
+    return this.result;
   };
 }
 
 class View {
   constructor() {
-    // this.app = this.getElement("#root");
     this.container = this.createElement("div", "container");
     this.calculator = this.createElement("div", "calculator");
     this.screen = this.createElement("div", "calculator-screen");
     this.button = this.createElement("div", "calculator-button");
     this.calculator.append(this.screen, this.button);
     this.container.append(this.calculator);
-    // this.app.append(this.container);
     document.body.appendChild(this.container);
   }
-  // updateScreen = (value) =>{
 
-  // }
+  updateScreen = (value) => {
+    this.screen.textContent = value;
+  };
 
   createElement(tag, className) {
     const element = document.createElement(tag);
@@ -264,19 +268,24 @@ class Controller {
   }
   handleButtonAndDot = (char) => {
     this.model.numberButton(char);
+    this.view.updateScreen(this.model.getResult());
   };
 
   handleClear = () => {
     this.model.clearAll();
+    this.view.updateScreen(this.model.getResult());
   };
   handleOperation = (operator) => {
     this.model.operatorButton(operator);
+    this.view.updateScreen(this.model.getResult());
   };
 
   handleCalculate = () => {
     this.model.calculateQueue(this.model.queue);
+    this.view.updateScreen(this.model.getResult());
   };
 }
 
 const app = new Controller(new Model(), new View());
 const app2 = new Controller(new Model(), new View());
+const app3 = new Controller(new Model(), new View());
